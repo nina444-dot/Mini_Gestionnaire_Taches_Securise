@@ -1,0 +1,105 @@
+body {
+    height: 100vh;
+    padding: 0;
+  margin: 0;
+    justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #EEAECA;
+background: radial-gradient(circle, rgba(238, 174, 202, 1) 50%, rgba(148, 187, 233, 1) 100%);
+}
+
+/* centre la carte */
+.page.auth-page {
+ width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* carte blanche */
+.auth-card {
+  background: white;
+  padding: 40px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* titre */
+.auth-card h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #94BBE9;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* formulaire */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ff7e5f;
+}
+
+/* bouton */
+.btn.btn-primary {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #EEAECA;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn.btn-primary:hover {
+  background: #94BBE9;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+}
+
+.auth-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-link a {
+  color: #94BBE9;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
