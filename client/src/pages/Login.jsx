@@ -26,6 +26,8 @@ function Login() {
 			const res = await api.post("/auth/login", data);
 			console.log(res.data);
 
+			localStorage.setItem("token", res.data.token);
+
 			alert("Connexion réussie !");
 			navigate("/dashboard");
 		} catch (error) {

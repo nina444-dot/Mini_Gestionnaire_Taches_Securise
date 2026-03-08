@@ -1,29 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import "./Dashboard.css";
 
 function Dashboard() {
 	const [title, setTitle] = useState("");
-	const [tasks, setTasks] = useState([
-		{
-			id: 1,
-			title: "Faire la maquette",
-			completed: false,
-		},
-		{
-			id: 2,
-			title: "Faire les courses",
-			completed: true,
-		},
-		{
-			id: 3,
-			title: "Chercher un stage",
-			completed: false,
-		},
-	]);
-
+	const [tasks, setTasks] = useState([]);
 	const [filter, setFilter] = useState("all");
 
-	const handleSubmit = (e) => {
+	
+	useEffect(() => {
+		const fetchTasks = async () => {
+			const token = localStorage.getItem("token");
+			try {
+				const response = await fetch(
+					"http://localhost:5000/api/tasks",
+					{
+						headers: { Authorization: `Bearer ${token}` },
+					},
+				);
+				if (response.ok) {
+					const data = await response.json();
+					setTasks(Array.isArray(data) ? data : []);
+				}
+			} catch (error) {
+				console.error("Erreur de chargement :", error);
+			}
+		};
+		fetchTasks();
+	}, []);
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if (!title.trim()) {
@@ -31,37 +36,103 @@ function Dashboard() {
 			return;
 		}
 
-		const newTask = {
-			id: Date.now(),
-			title: title,
-			completed: false,
-		};
+		const token = localStorage.getItem("token");
 
-		setTasks([...tasks, newTask]);
-		setTitle("");
+		try {
+			const response = await fetch("http://localhost:5000/api/tasks", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`, 
+				},
+				body: JSON.stringify({ title: title }),
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+
+				const newTask = {
+					id: data.taskId || data.id,
+					title: title,
+					completed: false,
+				};
+				setTasks([...tasks, newTask]);
+				setTitle("");
+			} else {
+				// Si erreur 401 le token est peut-être expiré
+				alert("Erreur serveur (401) : Reconnectez-vous.");
+			}
+		} catch (error) {
+			console.error("Erreur lors de l'envoi :", error);
+		}
 	};
 
-	const handleDelete = (id) => {
-		const updatedTasks = tasks.filter((task) => task.id !== id);
-		setTasks(updatedTasks);
-	};
+const handleDelete = async (id) => {
+	const token = localStorage.getItem("token"); 
 
-	const handleToggle = (id) => {
-		const updatedTasks = tasks.map((task) =>
-			task.id === id ? { ...task, completed: !task.completed } : task,
-		);
-		setTasks(updatedTasks);
+	try {
+	
+		const response = await fetch(`http://localhost:5000/api/tasks/${id}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${token}`, 
+			},
+		});
+
+		if (response.ok) {
+			
+			const updatedTasks = tasks.filter((task) => task.id !== id);
+			setTasks(updatedTasks);
+			console.log("Tâche supprimée de la base de données !");
+		} else {
+			alert("Erreur lors de la suppression sur le serveur.");
+		}
+	} catch (error) {
+		console.error("Erreur suppression :", error);
+	}
+};
+
+	const handleToggle = async (id) => {
+		const token = localStorage.getItem("token");
+		const taskToUpdate = tasks.find((t) => t.id === id);
+
+		try {
+			const response = await fetch(
+				`http://localhost:5000/api/tasks/${id}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+					
+					body: JSON.stringify({
+						completed: !taskToUpdate.completed,
+					}),
+				},
+			);
+
+			if (response.ok) {
+				setTasks(
+					tasks.map((task) =>
+						task.id === id
+							? { ...task, completed: !task.completed }
+							: task,
+					),
+				);
+			}
+		} catch (error) {
+			console.error("Erreur toggle :", error);
+		}
 	};
 
 	const handleEdit = (id) => {
 		const newTitle = prompt("Modifier le titre de la tâche :");
-
 		if (!newTitle || !newTitle.trim()) return;
 
 		const updatedTasks = tasks.map((task) =>
 			task.id === id ? { ...task, title: newTitle } : task,
 		);
-
 		setTasks(updatedTasks);
 	};
 
