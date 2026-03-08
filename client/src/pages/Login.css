@@ -2,6 +2,10 @@ body {
     height: 100vh;
     padding: 0;
   margin: 0;
+<<<<<<< HEAD
+=======
+  display: flex;
+>>>>>>> recup-temp
     justify-content: center;
   align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
