@@ -17,13 +17,13 @@
 * **Base de données** : MySQL
 * **API** : Avec protection par Middleware.
 
-### 2. Installation du Backend
+### Installation du Backend
 * Ouvrez un terminal dans le dossier `backend/`.
 * Installez les dépendances : `npm install`
 * Lancez le serveur : `npm run dev`
 Le serveur tourne par défaut sur le port **5000**.
 
-### 3. Installation du Frontend (Client)
+### Installation du Frontend (Client)
 * Ouvrez un nouveau terminal dans le dossier `client/`.
 * Installez les dépendances : `npm install`
 L'application sera accessible sur **http://localhost:5173**.
