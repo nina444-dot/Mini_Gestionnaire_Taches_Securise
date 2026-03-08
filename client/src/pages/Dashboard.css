@@ -1,0 +1,144 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 50%, rgba(148, 187, 233, 1) 100%);
+}
+
+.dashboard-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-card {
+  background: white;
+  width: 100%;
+  max-width: 700px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #94BBE9;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.task-form input:focus {
+  outline: none;
+  border-color: #94BBE9;
+}
+
+.task-form button {
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #EEAECA;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background: #94BBE9;
+}
+
+.filter-box {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-box select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-item {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.task-title.done {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.task-actions button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #EEAECA;
+  color: white;
+  cursor: pointer;
+}
+
+.task-actions button:hover {
+  background: #94BBE9;
+}
+
+@media (max-width: 768px) {
+  .dashboard-card {
+    margin: 20px;
+    padding: 25px;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-actions {
+    width: 100%;
+  }
+}
